@@ -4,8 +4,8 @@
 SET
 @Entry      := 601026,
 @Model      := 26314, -- Northrend Worgen White
-@Name       := "White Fang",
-@Title      := "BeastMaster",
+@Name       := "Sounder el destructor",
+@Title      := "|cff00ccffMaestro de bestias|r",
 @Icon       := "Speak",
 @GossipMenu := 60102,
 @MinLevel   := 80,
@@ -25,19 +25,22 @@ DELETE FROM creature_template WHERE entry = @Entry;
 INSERT INTO creature_template (entry, modelid1, name, subname, IconName, gossip_menu_id, minlevel, maxlevel, faction, npcflag, speed_walk, speed_run, scale, `rank`, unit_class, unit_flags, type, type_flags, RegenHealth, flags_extra, AiName, ScriptName) VALUES
 (@Entry, @Model, @Name, @Title, @Icon, @GossipMenu, @MinLevel, @MaxLevel, @Faction, @NPCFlag, 1, 1.14286, @Scale, @Rank, 1, 2, @Type, @TypeFlags, 1, @FlagsExtra, @AIName, @Script);
 
+insert  into `creature`(`guid`,`id1`,`id2`,`id3`,`map`,`zoneId`,`areaId`,`spawnMask`,`phaseMask`,`equipment_id`,`position_x`,`position_y`,`position_z`,`orientation`,`spawntimesecs`,`wander_distance`,`currentwaypoint`,`curhealth`,`curmana`,`MovementType`,`npcflag`,`unit_flags`,`dynamicflags`,`ScriptName`,`VerifiedBuild`) values
+(15130129,601026,0,0,1,0,0,1,1,1,-11869.1,-4669.86,5.9942,3.66825,300,0,0,5342,0,0,0,0,0,'',0);
+
 -- NPC EQUIPPED
 DELETE FROM `creature_equip_template` WHERE `CreatureID`=@Entry AND `ID`=1;
-INSERT INTO `creature_equip_template` VALUES (@Entry, 1, 2196, 1906, 0, 18019); -- Haunch of Meat, Torch
+REPLACE INTO `creature_equip_template` VALUES (@Entry, 1, 2196, 1906, 0, 18019); -- Haunch of Meat, Torch
 
 -- NPC TEXT
 DELETE FROM `npc_text` WHERE `ID` IN (601026, 601027);
-INSERT INTO `npc_text` (`ID`, `text0_0`) VALUES 
-(601026, 'Greetings, $N.$b$bIf you\'re looking for a trustful companion to take on your travels, you have come to the right place. I can offer you a variety of tamed pets to choose from. I can also supply you with food so that you can take good care of your new friend.'),
-(601027, 'What kind of pet are you interested in?');
+REPLACE INTO `npc_text` (`ID`, `text0_0`) VALUES 
+(601026, 'Saludos, $N.$b$bSi estás buscando un compañero de confianza para tus viajes, has venido al lugar correcto. Puedo ofrecerte una variedad de mascotas domesticadas para elegir. También puedo proporcionarte comida para que puedas cuidar bien a tu nuevo amigo.'),
+(601027, 'En que tipo de mascota estas interesado?');
 
 -- GOSSIP MENU
 DELETE FROM `gossip_menu` WHERE `MenuID` = 60102;
-INSERT INTO `gossip_menu` VALUES (60102, 68); -- Dummy gossip menu to prevent errors. Not used.
+REPLACE INTO `gossip_menu` VALUES (60102, 68); -- Dummy gossip menu to prevent errors. Not used.
 
 -- NPC ITEMS
 DELETE FROM npc_vendor WHERE entry = @Entry;
